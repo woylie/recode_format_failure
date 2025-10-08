@@ -28,6 +28,16 @@ defmodule NewappWeb.ThingLiveTest do
       assert_patched index_live, ~p"/"
     end
 
+    test "will fail as well", %{conn: conn} do
+      conn = get(conn, ~p"/")
+
+      assert json_response(conn, 403) == %{
+               "error" => "invalid_request",
+               "error_description" =>
+                 "This is an error message that is just too long here."
+             }
+    end
+
     test "saves new thing", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/things")
 
