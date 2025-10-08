@@ -23,6 +23,11 @@ defmodule NewappWeb.ThingLiveTest do
       assert html =~ thing.description
     end
 
+    test "will fail", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/things")
+      assert_patched index_live, ~p"/"
+    end
+
     test "saves new thing", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/things")
 
